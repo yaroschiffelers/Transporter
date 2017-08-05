@@ -34,10 +34,10 @@ com="brew cask search"
 # rm excellistlowerc.txt
 
 # replace uppercase letters with lowercase letters 
-tr '[:upper:]' '[:lower:]' < excellist.txt > excellistlowerc.txt
+tr '[:upper:]' '[:lower:]' < mylist.txt > mylistlowercase.txt
 
 # turn each line of a .txt file into an array item 
-IFS=$'\n' read -d '' -r -a arrayA < excellistlowerc.txt 
+IFS=$'\n' read -d '' -r -a arrayA < mylistlowercase.txt
 
 # https://stackoverflow.com/a/22432604/8398835
 # get the lenght of the array 
@@ -50,13 +50,5 @@ for (( i=1; i<${arrayAlength}+1; i++ ));
 do
 	# print the value of $com and each array item, this creates a command/argument per line in the new file. We'll use this later.
 	# send the output (via pipe | tee ) to a .txt file. 
-	echo $com ${arrayA[$i-1]} | tee -a outputarayA.txt 
-done
-
-# get outputarrayA.txt and parse to arrayB same for loop as arrayA 
-IFS=$'\n' read -d '' -r -a arrayB < outputarayA.txt
-arrayBlength=${#arrayB[@]}
-for (( i=1; i<${arrayBlength}+1; i++ ));
-do
-	${arrayB[$i-1]} >> match.txt
+	$com ${arrayA[$i-1]} | tee -a matches.txt 
 done
