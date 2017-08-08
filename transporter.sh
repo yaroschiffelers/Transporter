@@ -9,36 +9,32 @@
 
 # SCRIPT
 
-# Update Homebrew and Brewcask to latest version 
+# Update Homebrew to latest version 
 echo "Updating Homebrew"
 brew update 
-echo "Updating Brewcask"
-
 
 # Get current list of downloadable programs via brew cask
+echo "Getting current list of all programs Cask can download"
 brew cask search >| fullcasklist.txt
 
 # Convert mylist.txt to mylist with only lowercase letters 
-tr '[:upper:]' '[:lower:]' < mylist.txt >| mylistlowercase.txt
+echo "Converting mylist.txt"
+mylistlowercase=($(tr '[:upper:]' '[:lower:]' < mylist.txt))
 
-# Import mylistlowercase.txt to arrayA 
-IFS=$'\n' read -d '' -r -a arrayA < mylistlowercase.txt
-
-# Compare mylistlowercase.txt to fullcasklist.txt Output the results to matches.txt
-grep -x ${arrayA[@]/#/-e } fullcasklist.txt >| matches.txt
+# Compare $mylistlowercase[] to $fullcasklist[]. Output the results to matches[]
+grep -x ${mylistlowercase[@]/#/-e } fullcasklist.txt >| matches.txt
+IFS=$'\n' read -d '' -r -a matches < matches.txt
 
 echo "######################"
 echo "Programms to download:"
 
 # Import matches.txt to arrayB
-IFS=$'\n' read -d '' -r -a arrayB < matches.txt
-
-arrayBlength=${#arrayB[@]}
+matcheslength=${#matches[@]}
 
 # Show user the programs cask can download for them 
-for (( i=1; i<${arrayBlength}+1; i++ ));
+for (( i=1; i<${matcheslength}+1; i++ ));
 do
- 	echo ${arrayB[$i-1]}
+ 	echo ${matches[$i-1]}
 done
 
 # Ask user whether or not they want to download these programs 
@@ -50,9 +46,9 @@ answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 stty $old_stty_cfg  
 
 	if echo "$answer" | grep -iq "^y" ;then
-		for (( i=1; i<${arrayBlength}+1; i++ ));
+		for (( i=1; i<${matcheslength}+1; i++ ));
 		do 
-			brew cask install ${arrayB[$i-1]}
+			brew cask install ${matches[$i-1]}
 			echo "Exit"
 		done
 	else 
