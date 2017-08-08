@@ -55,8 +55,6 @@ stty $old_stty_cfg
 			brew cask install ${arrayB[$i-1]}
 			echo "Exit"
 		done
-
 	else 
 		echo "Exit"
-
 	fi
