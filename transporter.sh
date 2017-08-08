@@ -8,6 +8,13 @@
 # github.com/yaroschiffelers
 
 # SCRIPT
+
+# Update Homebrew and Brewcask to latest version 
+echo "Updating Homebrew"
+brew update 
+echo "Updating Brewcask"
+
+
 # Get current list of downloadable programs via brew cask
 brew cask search >| fullcasklist.txt
 
@@ -43,7 +50,6 @@ answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 stty $old_stty_cfg  
 
 	if echo "$answer" | grep -iq "^y" ;then
-
 		for (( i=1; i<${arrayBlength}+1; i++ ));
 		do 
 			brew cask install ${arrayB[$i-1]}
