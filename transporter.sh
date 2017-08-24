@@ -10,10 +10,6 @@
 
 # SCRIPT
 
-# Update Homebrew to latest version 
-echo "Updating Homebrew"
-brew update 
-
 # Get current list of downloadable programs via brew cask
 echo "Getting current list of all programs Cask can download"
 brew cask search >| fullcasklist.txt
@@ -31,13 +27,13 @@ IFS=$'\n' read -d '' -r -a matches < matches.txt
 echo "######################"
 echo "Programms to download:"
 matcheslength=${#matches[@]}
-for (( i=1; i<${matcheslength}+1; i++ ));
+for (( i=1; i<"${matcheslength}"+1; i++ ));
 do
- 	echo ${matches[$i-1]}
+ 	echo -e "${matches[$i-1]}"
 done
 
 # Ask user whether or not they want to download these programs 
-echo "################################"
+echo "######################"
 echo -n -e "Do you want to download these programms (y/n)?\n"
 old_stty_cfg=$(stty -g)
 stty raw -echo
@@ -45,13 +41,13 @@ answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 stty $old_stty_cfg
 	# Download the programs in $matches[] via brew cast install
 	if echo "$answer" | grep -iq "^y" ;then
-		for (( i=1; i<${matcheslength}+1; i++ ));
+		for (( i=1; i<"${matcheslength}"+1; i++ ));
 		do 
-			brew cask install ${matches[$i-1]}
-			echo "Exit"
-			exit
+			brew cask install "${matches[$i-1]}"
 		done
 	else 
 		echo "Exit"
-		exit
+		exit 
 	fi
+echo "Done"
+exit
