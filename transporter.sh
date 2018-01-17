@@ -14,7 +14,11 @@
 echo "Getting current list of all programs Cask can download"
 brew cask search >| fullcasklist.txt
 
-# Convert mylist.txt to mylist with only lowercase letters 
+# Import mylist.txt to mylistlowercase(array) with only lowercase letters 
+# This function is redundant, $brew cask works just as well with uppercase (or combined) input
+# Ill just leave it here for later use: 
+# testing in transid.sh --> need to make executable chmod joe
+# REMOVE AFTER TESTING IS DONE 
 echo "Converting mylist.txt"
 mylistlowercase=($(tr '[:upper:]' '[:lower:]' < mylist.txt))
 
