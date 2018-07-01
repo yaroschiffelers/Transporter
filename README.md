@@ -1,11 +1,11 @@
 # Transporter
-Put the programs you want to download in mylist.txt 
-  Please make sure mylist.txt isn't empty, otherwise the script will keep looping.
+Put the programs you want to download in mylist.txt
 
-Run the script.<br>
-It'll tell you which programs are downloadable via brew cask and download them for you.
+Please make sure mylist.txt isn't empty, otherwise the script will keep looping.
 
-## TODO: 
-- complete README.md 
-- add brew/brewcask installer 
-- find workaround for empty mylist.txt
+Run the script.  
+
+````bash
+. transporter.sh
+````
+You'll see a list with the programs that can be downloaded. Confirm (press: ````y````) if you want to download them, abort (press: ````n````) to stop. 
