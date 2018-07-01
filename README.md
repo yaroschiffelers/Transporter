@@ -1,7 +1,7 @@
 # Transporter
 Put the programs you want to download in mylist.txt
 
-Please make sure mylist.txt isn't empty, otherwise the script will keep looping.
+Please make sure mylist.txt isn't empty, otherwise the script won't work.
 
 Run the script.  
 
